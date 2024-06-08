@@ -25,7 +25,7 @@ export default function GetStartedExplain() {
 
   const handleNextButton = () => {
     if (dotActive === startSkipData.length - 1) {
-      navigate("/");
+      navigate("/register_user");
     } else {
       setDotActive((prevDot) => (prevDot + 1) % startSkipData.length);
       setSkipTitle(startSkipData[dotActive].title);
@@ -70,7 +70,7 @@ export default function GetStartedExplain() {
           <p className="text-base text-gray-500 text-center">{skipDesc}</p>
         </div>
         <Link
-          to="/"
+          to="/register_user"
           className="p-3 bg-sky-500 hover:bg-sky-600 transition rounded-lg text-center text-white mt-10"
         >
           شروع
