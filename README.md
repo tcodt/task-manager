@@ -1,8 +1,7 @@
-# React + Vite
+# React Task Manager App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Manage your daily works and tasks with TCOD TASK app, I will be happy to know your opinion 😀
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Click [here](https://tcod-task-manager.vercel.app) to watch the live demo :)
