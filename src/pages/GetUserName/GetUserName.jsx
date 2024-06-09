@@ -17,13 +17,13 @@ export default function GetUserName() {
             <div className="relative">
               <label
                 htmlFor="user_input"
-                className="p-2 bg-sky-500 rounded-s-lg h-[95%] w-12 absolute start-0 top-0"
+                className="p-2 bg-sky-500 rounded-s-lg h-[99%] w-12 absolute start-0 top-0"
               >
                 <FaUser className="text-white text-xl mx-auto" />
               </label>
               <input
                 type="text"
-                className="p-2 border-2 border-gray-300 outline-none rounded-lg"
+                className="p-2 ps-14 border-2 border-gray-300 outline-none rounded-lg focus-visible:border-sky-500"
                 id="user_input"
               />
             </div>

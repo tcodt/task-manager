@@ -35,47 +35,42 @@ export default function GetStartedExplain() {
   };
 
   return (
-    <div className="p-4 flex flex-col content-between h-screen">
-      <div className="flex flex-col">
-        <div className="flex justify-between items-center">
-          <div>
-            <button
-              className="text-base text-sky-500"
-              onClick={handleNextButton}
-            >
-              بعدی
-            </button>
-          </div>
-          <div className="flex items-center gap-1">
-            <div
-              className={`w-3 h-3 rounded-full ${
-                dotActive === 0 ? "bg-sky-500" : "bg-slate-300"
-              } `}
-            ></div>
-            <div
-              className={`w-3 h-3 rounded-full ${
-                dotActive === 1 ? "bg-sky-500" : "bg-slate-300"
-              } `}
-            ></div>
-            <div
-              className={`w-3 h-3 rounded-full ${
-                dotActive === 2 ? "bg-sky-500" : "bg-slate-300"
-              } `}
-            ></div>
-          </div>
+    <div className="p-4 flex flex-col justify-between h-screen">
+      <div className="flex justify-between items-center">
+        <div>
+          <button className="text-base text-sky-500" onClick={handleNextButton}>
+            بعدی
+          </button>
         </div>
-        <div className="flex flex-col items-center gap-4 mt-36">
-          <img src={skipImage} alt={skipTitle} data-aos="flip-down" />
-          <h3 className="text-xl text-gray-800 font-semibold">{skipTitle}</h3>
-          <p className="text-base text-gray-500 text-center">{skipDesc}</p>
+        <div className="flex items-center gap-1">
+          <div
+            className={`w-3 h-3 rounded-full ${
+              dotActive === 0 ? "bg-sky-500" : "bg-slate-300"
+            } `}
+          ></div>
+          <div
+            className={`w-3 h-3 rounded-full ${
+              dotActive === 1 ? "bg-sky-500" : "bg-slate-300"
+            } `}
+          ></div>
+          <div
+            className={`w-3 h-3 rounded-full ${
+              dotActive === 2 ? "bg-sky-500" : "bg-slate-300"
+            } `}
+          ></div>
         </div>
-        <Link
-          to="/register_user"
-          className="p-3 bg-sky-500 hover:bg-sky-600 transition rounded-lg text-center text-white mt-10"
-        >
-          شروع
-        </Link>
       </div>
+      <div className="flex flex-col items-center gap-4">
+        <img src={skipImage} alt={skipTitle} data-aos="flip-down" />
+        <h3 className="text-xl text-gray-800 font-semibold">{skipTitle}</h3>
+        <p className="text-base text-gray-500 text-center">{skipDesc}</p>
+      </div>
+      <Link
+        to="/register_user"
+        className="p-3 bg-sky-500 hover:bg-sky-600 w-full transition rounded-lg text-center text-white"
+      >
+        شروع
+      </Link>
     </div>
   );
 }
