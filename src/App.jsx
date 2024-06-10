@@ -12,8 +12,10 @@ export default function App() {
   useEffect(() => {
     const localStorageData = JSON.parse(localStorage.getItem("username"));
 
-    if (localStorageData) setUsername(localStorageData);
-    else navigate("/register_user");
+    if (localStorageData) {
+      setUsername(localStorageData);
+      navigate("/dashboard");
+    } else navigate("/register_user");
   }, [navigate]);
 
   return (
