@@ -4,6 +4,13 @@ import moment from "moment-jalaali";
 import { BiSolidBell } from "react-icons/bi";
 import goodDayTextData from "../../data/goodDayTextData";
 
+import { SwiperSlide, Swiper } from "swiper/react";
+import { FreeMode } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
+
+import "./Dashboard.css";
+
 export default function Dashboard() {
   const { username } = useContext(UsernameContext);
   const [persianDate, setPersianDate] = useState("");
@@ -49,7 +56,99 @@ export default function Dashboard() {
           {goodDayTextData[currentTextIndex]}
         </p>
       </div>
-      <div>Tasks</div>
+      <div className="flex flex-col gap-4">
+        <h4 className="text-gray-800 text-base font-semibold">
+          تسک های در الویت
+        </h4>
+        <div>
+          <Swiper
+            slidesPerView={2}
+            spaceBetween={15}
+            freeMode={true}
+            modules={[FreeMode]}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+              <div className="bg-sky-500 rounded-xl p-2 flex flex-col gap-8">
+                <div className="bg-white p-1 rounded-xl w-2/4">
+                  <span className="text-xs text-grau-700">10 روز</span>
+                </div>
+                <div>
+                  <h5 className="text-base text-white">تسک اول</h5>
+                </div>
+                <div>
+                  <p className="text-white text-sm">نوار پیشرفت</p>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="bg-purple-500 rounded-xl p-2 flex flex-col gap-8">
+                <div className="bg-white p-1 rounded-xl w-2/4">
+                  <span className="text-xs text-grau-700">10 روز</span>
+                </div>
+                <div>
+                  <h5 className="text-base text-white">تسک اول</h5>
+                </div>
+                <div>
+                  <p className="text-white text-sm">نوار پیشرفت</p>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="bg-red-500 rounded-xl p-2 flex flex-col gap-8">
+                <div className="bg-white p-1 rounded-xl w-2/4">
+                  <span className="text-xs text-grau-700">10 روز</span>
+                </div>
+                <div>
+                  <h5 className="text-base text-white">تسک اول</h5>
+                </div>
+                <div>
+                  <p className="text-white text-sm">نوار پیشرفت</p>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="bg-yellow-500 rounded-xl p-2 flex flex-col gap-8">
+                <div className="bg-white p-1 rounded-xl w-2/4">
+                  <span className="text-xs text-grau-700">10 روز</span>
+                </div>
+                <div>
+                  <h5 className="text-base text-white">تسک اول</h5>
+                </div>
+                <div>
+                  <p className="text-white text-sm">نوار پیشرفت</p>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="bg-green-500 rounded-xl p-2 flex flex-col gap-8">
+                <div className="bg-white p-1 rounded-xl w-2/4">
+                  <span className="text-xs text-grau-700">10 روز</span>
+                </div>
+                <div>
+                  <h5 className="text-base text-white">تسک اول</h5>
+                </div>
+                <div>
+                  <p className="text-white text-sm">نوار پیشرفت</p>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="bg-orange-500 rounded-xl p-2 flex flex-col gap-8">
+                <div className="bg-white p-1 rounded-xl w-2/4">
+                  <span className="text-xs text-grau-700">10 روز</span>
+                </div>
+                <div>
+                  <h5 className="text-base text-white">تسک اول</h5>
+                </div>
+                <div>
+                  <p className="text-white text-sm">نوار پیشرفت</p>
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+      </div>
       <div>Daily Tasks</div>
     </div>
   );
