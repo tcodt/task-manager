@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
-import UsernameContext from "../../contexts/UsernameContext";
+import { UsernameContext } from "../../contexts/Contexts";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 

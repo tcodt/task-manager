@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import UsernameContext from "../../contexts/UsernameContext";
+import { UserTasks, UsernameContext } from "../../contexts/Contexts";
 import moment from "moment-jalaali";
 import { BiSolidBell } from "react-icons/bi";
 import goodDayTextData from "../../data/goodDayTextData";
@@ -13,30 +13,48 @@ import "./Dashboard.css";
 
 export default function Dashboard() {
   const { username } = useContext(UsernameContext);
-  const [persianDate, setPersianDate] = useState("");
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [persianDate, setPersianDate] = useState("");
+  const [persianDay, setPersianDay] = useState("");
+  const [persianTime, setPersianTime] = useState("");
+
+  const persianDayNames = [
+    "یکشنبه",
+    "دوشنبه",
+    "سه‌شنبه",
+    "چهارشنبه",
+    "پنجشنبه",
+    "جمعه",
+    "شنبه",
+  ];
+
+  const { tasks } = useContext(UserTasks);
 
   useEffect(() => {
-    updatePersianDate();
-    const interval = setInterval(() => {
-      setCurrentTextIndex(
-        (prevIndex) => (prevIndex + 1) % goodDayTextData.length
-      );
-    }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+    setCurrentTextIndex((prevText) => (prevText + 1) % goodDayTextData.length);
 
+    const interval = setInterval(() => {
+      const currentTime = new Date();
+
+      // Convert the current date to a Persian date
+      const formattedPersianDate = moment(currentTime)
+        .locale("fa")
+        .format("jYYYY/jM/jD");
+      setPersianDate(formattedPersianDate);
+
+      // Get the Persian day name
+      const dayIndex = currentTime.getDay();
+      const persianDayName = persianDayNames[dayIndex];
+      setPersianDay(persianDayName);
+
+      // Get the Persian time
+      const formattedPersianTime = moment(currentTime).format("HH:mm:ss");
+      setPersianTime(formattedPersianTime);
+    }, 1000);
+
+    // Clean up the interval when the component is unmounted
     return () => clearInterval(interval);
   }, []);
-
-  const updatePersianDate = () => {
-    const currentDate = moment().locale("fa");
-    const persianYear = currentDate.format("jYYYY");
-    const persianMonth = currentDate.format("jMM");
-    const persianDay = currentDate.format("jDD");
-    const persianDayName = currentDate.format("dddd");
-
-    const formattedDate = `${persianYear}/${persianMonth}/${persianDay} - (${persianDayName})`;
-    setPersianDate(formattedDate);
-  };
 
   return (
     <div className="flex flex-col justify-between h-screen p-4">
@@ -45,7 +63,9 @@ export default function Dashboard() {
           <BiSolidBell className="text-3xl text-sky-500 cursor-pointer" />
         </div>
         <div>
-          <span className="text-sm text-gray-500">{persianDate}</span>
+          <span className="text-sm text-gray-500">
+            {persianDate} - {persianDay} - {persianTime}
+          </span>
         </div>
       </div>
       <div>
@@ -57,7 +77,7 @@ export default function Dashboard() {
         </p>
       </div>
       <div className="flex flex-col gap-4">
-        <h4 className="text-gray-800 text-base font-semibold">
+        <h4 className="text-gray-800 text-lg font-semibold">
           تسک های در الویت
         </h4>
         <div>
@@ -68,84 +88,35 @@ export default function Dashboard() {
             modules={[FreeMode]}
             className="mySwiper"
           >
-            <SwiperSlide>
-              <div className="bg-sky-500 rounded-xl p-2 flex flex-col gap-8">
-                <div className="bg-white p-1 rounded-xl w-2/4">
-                  <span className="text-xs text-grau-700">10 روز</span>
+            {tasks.map((task) => (
+              <SwiperSlide key={task.id}>
+                <div
+                  className={`bg-sky-500 rounded-xl p-2 flex flex-col gap-8`}
+                  id="slider_bg"
+                >
+                  <div className="bg-white p-1 rounded-xl w-2/4">
+                    <span className="text-xs text-grau-700">
+                      {task.timeToFinish} روز
+                    </span>
+                  </div>
+                  <div>
+                    <h5 className="text-base text-white">{task.title}</h5>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-white text-xs">پیشرفت</p>
+                    <div className="bg-gray-800 bg-opacity-45 rounded-full h-2 w-full relative">
+                      <div
+                        className={`absolute top-0 bg-slate-100 h-2 rounded-full`}
+                        style={{ width: `${task.progress}%` }}
+                      ></div>
+                    </div>
+                    <span className="text-white text-xs w-full text-end">
+                      %{task.progress}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <h5 className="text-base text-white">تسک اول</h5>
-                </div>
-                <div>
-                  <p className="text-white text-sm">نوار پیشرفت</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="bg-purple-500 rounded-xl p-2 flex flex-col gap-8">
-                <div className="bg-white p-1 rounded-xl w-2/4">
-                  <span className="text-xs text-grau-700">10 روز</span>
-                </div>
-                <div>
-                  <h5 className="text-base text-white">تسک اول</h5>
-                </div>
-                <div>
-                  <p className="text-white text-sm">نوار پیشرفت</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="bg-red-500 rounded-xl p-2 flex flex-col gap-8">
-                <div className="bg-white p-1 rounded-xl w-2/4">
-                  <span className="text-xs text-grau-700">10 روز</span>
-                </div>
-                <div>
-                  <h5 className="text-base text-white">تسک اول</h5>
-                </div>
-                <div>
-                  <p className="text-white text-sm">نوار پیشرفت</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="bg-yellow-500 rounded-xl p-2 flex flex-col gap-8">
-                <div className="bg-white p-1 rounded-xl w-2/4">
-                  <span className="text-xs text-grau-700">10 روز</span>
-                </div>
-                <div>
-                  <h5 className="text-base text-white">تسک اول</h5>
-                </div>
-                <div>
-                  <p className="text-white text-sm">نوار پیشرفت</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="bg-green-500 rounded-xl p-2 flex flex-col gap-8">
-                <div className="bg-white p-1 rounded-xl w-2/4">
-                  <span className="text-xs text-grau-700">10 روز</span>
-                </div>
-                <div>
-                  <h5 className="text-base text-white">تسک اول</h5>
-                </div>
-                <div>
-                  <p className="text-white text-sm">نوار پیشرفت</p>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="bg-orange-500 rounded-xl p-2 flex flex-col gap-8">
-                <div className="bg-white p-1 rounded-xl w-2/4">
-                  <span className="text-xs text-grau-700">10 روز</span>
-                </div>
-                <div>
-                  <h5 className="text-base text-white">تسک اول</h5>
-                </div>
-                <div>
-                  <p className="text-white text-sm">نوار پیشرفت</p>
-                </div>
-              </div>
-            </SwiperSlide>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>
