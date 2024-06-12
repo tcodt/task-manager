@@ -50,6 +50,8 @@ export default function GetUserName() {
               </label>
               <input
                 type="text"
+                autoComplete="off"
+                spellCheck="false"
                 className={`p-2 ps-14 border-2 border-gray-300 outline-none rounded-lg ${
                   errors.username
                     ? "border-red-500 focus-visible:border-red-500"
