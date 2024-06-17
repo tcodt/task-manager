@@ -1,13 +1,13 @@
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
-import { UsernameContext } from "../../contexts/Contexts";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getUsername } from "../../features/username/usernameSlice";
 
 export default function GetUserName() {
-  const { username, setUsername } = useContext(UsernameContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -16,7 +16,7 @@ export default function GetUserName() {
   } = useForm();
 
   const getUserNameHandler = (data) => {
-    setUsername(data.username);
+    dispatch(getUsername(data.username));
     localStorage.setItem("username", JSON.stringify(data.username));
     console.log(data);
     toast.success("با موفقیت فرم را پر کردید");

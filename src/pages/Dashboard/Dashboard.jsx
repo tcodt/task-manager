@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
-import { UserTasks, UsernameContext } from "../../contexts/Contexts";
+import { useEffect, useState } from "react";
+// import { UsernameContext } from "../../contexts/Contexts";
 import moment from "moment-jalaali";
 import { BiSolidBell } from "react-icons/bi";
 import goodDayTextData from "../../data/goodDayTextData";
+import tasksData from "../../data/tasksData";
 
 import { SwiperSlide, Swiper } from "swiper/react";
 import { FreeMode } from "swiper/modules";
@@ -10,13 +11,29 @@ import "swiper/css";
 import "swiper/css/free-mode";
 
 import "./Dashboard.css";
+import { PiCheckCircleDuotone, PiCircleDuotone } from "react-icons/pi";
+import { useSelector } from "react-redux";
 
 export default function Dashboard() {
-  const { username } = useContext(UsernameContext);
+  // const { username } = useContext(UsernameContext);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [persianDate, setPersianDate] = useState("");
   const [persianDay, setPersianDay] = useState("");
   const [persianTime, setPersianTime] = useState("");
+  const [tasks, setTasks] = useState(tasksData);
+  const [isChecked, setIsChecked] = useState(null);
+
+  const username = useSelector((state) => state.username.value);
+
+  const clickTaskHandler = (taskID) => {
+    const updatedTask = tasksData.filter((task) => {
+      if (task.id === taskID) {
+        return { ...task, checked: !task.checked };
+      }
+    });
+    setTasks(updatedTask);
+    setIsChecked(taskID);
+  };
 
   const persianDayNames = [
     "یکشنبه",
@@ -27,8 +44,6 @@ export default function Dashboard() {
     "جمعه",
     "شنبه",
   ];
-
-  const { tasks } = useContext(UserTasks);
 
   useEffect(() => {
     setCurrentTextIndex((prevText) => (prevText + 1) % goodDayTextData.length);
@@ -120,7 +135,26 @@ export default function Dashboard() {
           </Swiper>
         </div>
       </div>
-      <div>Daily Tasks</div>
+      <div>
+        <h4 className="text-gray-800 text-lg font-semibold">تسک های روزانه</h4>
+        <ul className="flex flex-col gap-2 mt-4">
+          {tasks.map((task) => (
+            <li
+              key={task.id}
+              className="flex items-center justify-between hover:bg-slate-300 transition p-2 rounded-xl cursor-pointer"
+              onClick={() => clickTaskHandler(task.id)}
+            >
+              <p className="text-base text-gray-700">{task.title}</p>
+
+              {task.id === isChecked && task.checked ? (
+                <PiCheckCircleDuotone className="text-2xl text-sky-500" />
+              ) : (
+                <PiCircleDuotone className="text-2xl text-red-500" />
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
