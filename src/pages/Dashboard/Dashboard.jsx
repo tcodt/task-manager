@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import moment from "moment-jalaali";
 import { BiSolidBell } from "react-icons/bi";
 import goodDayTextData from "../../data/goodDayTextData";
-import tasksData from "../../data/tasksData";
 
 import { SwiperSlide, Swiper } from "swiper/react";
 import { FreeMode } from "swiper/modules";
@@ -13,6 +12,10 @@ import "swiper/css/free-mode";
 import "./Dashboard.css";
 import { PiCheckCircleDuotone, PiCircleDuotone } from "react-icons/pi";
 import { useSelector } from "react-redux";
+import Menu from "../../components/Menu/Menu";
+import priorityTasks from "../../data/priorityTasks";
+import dailyTasks from "../../data/dailyTasks";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   // const { username } = useContext(UsernameContext);
@@ -20,19 +23,16 @@ export default function Dashboard() {
   const [persianDate, setPersianDate] = useState("");
   const [persianDay, setPersianDay] = useState("");
   const [persianTime, setPersianTime] = useState("");
-  const [tasks, setTasks] = useState(tasksData);
+  const [priorityTask, setPriorityTask] = useState(priorityTasks);
+  const [dailyTask, setDailyTask] = useState(dailyTasks);
   const [isChecked, setIsChecked] = useState(null);
 
   const username = useSelector((state) => state.username.value);
 
-  const clickTaskHandler = (taskID) => {
-    const updatedTask = tasksData.filter((task) => {
-      if (task.id === taskID) {
-        return { ...task, checked: !task.checked };
-      }
-    });
-    setTasks(updatedTask);
-    setIsChecked(taskID);
+  const toggleTaskHandler = (taskID) => {
+    const clickedTask = dailyTask.find((t) => t.id === taskID);
+    clickedTask.checked = !clickedTask.checked;
+    setIsChecked(true);
   };
 
   const persianDayNames = [
@@ -72,7 +72,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-between h-screen p-4">
+    <div className="flex flex-col justify-between gap-4 h-screen p-4">
       <div className="flex justify-between items-center">
         <div>
           <BiSolidBell className="text-3xl text-sky-500 cursor-pointer" />
@@ -93,7 +93,7 @@ export default function Dashboard() {
       </div>
       <div className="flex flex-col gap-4">
         <h4 className="text-gray-800 text-lg font-semibold">
-          تسک های در الویت
+          وظیفه های در الویت
         </h4>
         <div>
           <Swiper
@@ -103,9 +103,10 @@ export default function Dashboard() {
             modules={[FreeMode]}
             className="mySwiper"
           >
-            {tasks.map((task) => (
+            {priorityTask.map((task) => (
               <SwiperSlide key={task.id}>
-                <div
+                <Link
+                  to="/"
                   className={`bg-sky-500 rounded-xl p-2 flex flex-col gap-8`}
                   id="slider_bg"
                 >
@@ -129,24 +130,24 @@ export default function Dashboard() {
                       %{task.progress}
                     </span>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
       <div>
-        <h4 className="text-gray-800 text-lg font-semibold">تسک های روزانه</h4>
+        <h4 className="text-gray-800 text-lg font-semibold">وظایف روزانه</h4>
         <ul className="flex flex-col gap-2 mt-4">
-          {tasks.map((task) => (
+          {dailyTask.map((task) => (
             <li
               key={task.id}
               className="flex items-center justify-between hover:bg-slate-300 transition p-2 rounded-xl cursor-pointer"
-              onClick={() => clickTaskHandler(task.id)}
+              onClick={() => toggleTaskHandler(task.id)}
             >
               <p className="text-base text-gray-700">{task.title}</p>
 
-              {task.id === isChecked && task.checked ? (
+              {isChecked && task.checked ? (
                 <PiCheckCircleDuotone className="text-2xl text-sky-500" />
               ) : (
                 <PiCircleDuotone className="text-2xl text-red-500" />
@@ -155,6 +156,7 @@ export default function Dashboard() {
           ))}
         </ul>
       </div>
+      <Menu />
     </div>
   );
 }

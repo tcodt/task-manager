@@ -1,4 +1,4 @@
-const tasksData = [
+const dailyTasks = [
   {
     id: 1,
     title: "تکمیل گزارش",
@@ -9,7 +9,7 @@ const tasksData = [
   {
     id: 2,
     title: "شرکت در جلسه تیم",
-    checked: true,
+    checked: false,
     progress: 30,
     timeToFinish: 3,
   },
@@ -23,7 +23,7 @@ const tasksData = [
   {
     id: 4,
     title: "تماس با مشتری",
-    checked: true,
+    checked: false,
     progress: 66,
     timeToFinish: 20,
   },
@@ -37,7 +37,7 @@ const tasksData = [
   {
     id: 6,
     title: "بررسی طرح های موکاپ",
-    checked: true,
+    checked: false,
     progress: 90,
     timeToFinish: 2,
   },
@@ -51,7 +51,7 @@ const tasksData = [
   {
     id: 8,
     title: "برنامه ریزی برای جلسه یک به یک با مدیر",
-    checked: true,
+    checked: false,
     progress: 12,
     timeToFinish: 23,
   },
@@ -65,10 +65,10 @@ const tasksData = [
   {
     id: 10,
     title: "شرکت در جلسه تست کاربر",
-    checked: true,
+    checked: false,
     progress: 40,
     timeToFinish: 10,
   },
 ];
 
-export default tasksData;
+export default dailyTasks;
