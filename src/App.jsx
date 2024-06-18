@@ -17,7 +17,7 @@ export default function App() {
     if (localStorageData) {
       dispatch(getUsername(localStorageData));
       navigate("/dashboard");
-    } else navigate("/register_user");
+    }
   }, [dispatch, navigate]);
 
   return <>{route}</>;

@@ -1,9 +1,9 @@
-import GetStarted from "../GetStarted/GetStarted";
+import GetStartedExplain from "../GetStartedExplain/GetStartedExplain";
 
 export default function Index() {
   return (
     <div>
-      <GetStarted />
+      <GetStartedExplain />
     </div>
   );
 }

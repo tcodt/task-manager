@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import Menu from "../../components/Menu/Menu";
 import priorityTasks from "../../data/priorityTasks";
 import dailyTasks from "../../data/dailyTasks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   // const { username } = useContext(UsernameContext);
@@ -26,6 +26,8 @@ export default function Dashboard() {
   const [priorityTask, setPriorityTask] = useState(priorityTasks);
   const [dailyTask, setDailyTask] = useState(dailyTasks);
   const [isChecked, setIsChecked] = useState(null);
+
+  const navigate = useNavigate();
 
   const username = useSelector((state) => state.username.value);
 
@@ -46,6 +48,12 @@ export default function Dashboard() {
   ];
 
   useEffect(() => {
+    let localStorageData = JSON.parse(localStorage.getItem("username"));
+
+    if (!localStorageData) {
+      navigate("/");
+    }
+
     setCurrentTextIndex((prevText) => (prevText + 1) % goodDayTextData.length);
 
     const interval = setInterval(() => {
