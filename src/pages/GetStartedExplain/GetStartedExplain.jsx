@@ -2,7 +2,7 @@ import Aos from "aos";
 import { useEffect, useState } from "react";
 import StartSkipData from "../../data/StartSkipData.json";
 import { Link, useNavigate } from "react-router-dom";
-import GetStarted from "../GetStarted/GetStarted";
+import GetStarted from "../../components/GetStarted/GetStarted";
 
 export default function GetStartedExplain() {
   const [startSkipData, setStartSkipData] = useState(StartSkipData);
